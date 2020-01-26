@@ -1,0 +1,6 @@
+.idea
+.vscode
+*.json
+*.*json
+*pycache*
+.env

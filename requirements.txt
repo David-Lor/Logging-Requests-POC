@@ -1,0 +1,8 @@
+fastapi  # api framework
+uvicorn  # api runner
+pymongo  # database backend
+loguru  # logging
+python-dotenv  # load .env files
+dotenv-settings-handler  # create classes where .env settings get loaded
+requests  # requests for tests/tools
+ward  # test framework
