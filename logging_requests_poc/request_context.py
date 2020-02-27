@@ -19,10 +19,7 @@ def contextualize_request(request_verb: str, request_id: Optional[str] = None):
     
     with logger.contextualize(request_id=request_id, request_verb=request_verb):
         with manage_endpoint_exceptions():
-            try:
-                logger.info("Request started")
-                yield
-                with logger.contextualize(last_request_record=True):
-                    logger.debug("Request completed successfully")
-            finally:
-                pass
+            logger.info("Request started")
+            yield
+            with logger.contextualize(last_request=True):
+                logger.debug("Request completed successfully")

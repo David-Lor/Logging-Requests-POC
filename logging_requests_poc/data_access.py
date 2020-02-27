@@ -60,6 +60,9 @@ class UsersDataAccess:
         if "fail" in user_create.username.lower():
             raise ValueError("The username contains the word \"fail\"")
 
+        if "warn" in user_create.username.lower():
+            logger.warning("The username contains 'warn'")
+
         inserted_id = mongo_users.insert_one(entity).inserted_id
         logger.info(f"Inserted entity with document id {inserted_id} in DB")
 
