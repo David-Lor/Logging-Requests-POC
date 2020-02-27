@@ -1,5 +1,7 @@
 # Logging Requests POC
 
+![Test](https://github.com/David-Lor/Logging-Requests-POC/workflows/Test/badge.svg)
+
 ## Introduction
 
 ### TL;DR
