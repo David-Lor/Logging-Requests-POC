@@ -1,5 +1,5 @@
 """APP
-API initialization + endpoints
+API initialization, endpoints and main Run entrypoint function
 """
 
 # # Native # #
@@ -7,12 +7,15 @@ import json
 
 # # Installed # #
 import fastapi
+import uvicorn
 
 # # Package # #
 from logging_requests_poc.request_context import contextualize_request
 from logging_requests_poc.data_access import UsersDataAccess
 from logging_requests_poc.responses import Responses
 from logging_requests_poc.entities import User, UserCreate, Users
+from logging_requests_poc.settings_handler import api_settings
+from logging_requests_poc.logger import system_logger as logger
 
 
 __all__ = ("app",)
@@ -61,3 +64,19 @@ async def endpoint_delete_user(user_id: str):
 # async def endpoint_patch_user(user_id: str):
 #     with contextualize_request():
 #         pass
+
+
+def run():
+    """Run the API using Uvicorn
+    """
+    host = api_settings.host
+    port = api_settings.port
+
+    logger.info(f"Running API on {host}:{port}")
+    uvicorn.run(
+        app=app,
+        host=host,
+        port=port,
+        # TODO combine uvicorn log with system log?
+        log_level=1000  # disable uvicorn logs
+    )

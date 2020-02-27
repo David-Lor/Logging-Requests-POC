@@ -1,5 +1,5 @@
 """ERROR HANDLER
-Handler that translates Python exceptions into HTTP responses
+Handler that translates Python exceptions into HTTP responses and logs errors
 """
 
 # # Native # #

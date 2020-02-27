@@ -8,4 +8,4 @@ if __name__ == '__main__':
         "Content-Type": "application/json"
     }
 
-    requests.post("http://localhost:5000/users", json=body, headers=headers)
+    requests.post("http://127.0.0.1:5000/users", json=body, headers=headers)

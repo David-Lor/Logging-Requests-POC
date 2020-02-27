@@ -11,6 +11,7 @@ from loguru import logger
 
 # # Project # #
 from logging_requests_poc.database import mongo_logs
+from logging_requests_poc.settings_handler import api_settings as settings
 
 __all__ = ("system_logger", "requests_logger")
 
@@ -57,13 +58,19 @@ def _request_handler(record: str):
         if record["extra"].get("last_request"):
             records = _request_records.pop(request_id)
 
-            # TODO ERROR Log level could be customized through settings
             # TODO Send records to system log?
-            if any(rec for rec in records if rec["level"]["no"] >= logger.level("ERROR").no):
+            if any(rec for rec in records if rec["level"]["no"] >= logger.level(settings.persist_log_level).no):
                 system_logger.debug(f"Inserting {len(records)} log records of request {request_id} on Mongo")
                 # Using an async mongo client would be preferably
-                # QUEST Insert each record as a document, or one document with all request records?
-                mongo_logs.insert_many(records)
+
+                # Insert one document per log record:
+                # mongo_logs.insert_many(records)
+
+                # Insert one document per request:
+                mongo_logs.insert_one({
+                    "_id": request_id,
+                    "records": records
+                })
 
 
 # Adding handlers to the logger
