@@ -30,5 +30,7 @@ jobs:
         run: python -m pip install -r requirements.txt
       - name: Start the API
         run: python . &
+        env:
+          API_PERSIST_LOG_LEVEL: WARNING
       - name: Test
         run: python -m ward
